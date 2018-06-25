@@ -5,9 +5,12 @@ import android.content.Context
 import com.denwehrle.boilerplate.BuildConfig
 import com.denwehrle.boilerplate.data.local.helper.DatabaseHelper
 import com.denwehrle.boilerplate.data.local.helper.PreferenceHelper
+import com.denwehrle.boilerplate.data.manager.contact.ContactDataManager
 import com.denwehrle.boilerplate.data.remote.endpoints.ContactService
 import com.denwehrle.boilerplate.data.remote.factory.ContactServiceFactory
+import com.denwehrle.boilerplate.redux.middleware.NetworkMiddleware
 import com.denwehrle.boilerplate.redux.reducers.appReducer
+import com.denwehrle.boilerplate.redux.state.AppState
 import com.denwehrle.boilerplate.redux.state.AppStore
 import dagger.Module
 import dagger.Provides
@@ -19,7 +22,7 @@ import javax.inject.Singleton
  *
  * @author Dennis Wehrle
  */
-@Module
+@Module()
 class AppModule {
 
     @Provides
@@ -54,9 +57,9 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideStore(): AppStore = Store(
+    fun provideStore(dataManager : ContactDataManager): AppStore = Store(
             reducer = ::appReducer,
-            state = null,
-            middleware = listOf()
+            state = AppState(),
+            middleware = listOf(NetworkMiddleware(dataManager))
     )
 }

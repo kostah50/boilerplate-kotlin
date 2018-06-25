@@ -7,8 +7,11 @@ import com.denwehrle.boilerplate.data.local.helper.DatabaseHelper
 import com.denwehrle.boilerplate.data.local.helper.PreferenceHelper
 import com.denwehrle.boilerplate.data.remote.endpoints.ContactService
 import com.denwehrle.boilerplate.data.remote.factory.ContactServiceFactory
+import com.denwehrle.boilerplate.redux.reducers.appReducer
+import com.denwehrle.boilerplate.redux.state.AppStore
 import dagger.Module
 import dagger.Provides
+import org.rekotlin.Store
 import javax.inject.Singleton
 
 /**
@@ -45,4 +48,15 @@ class AppModule {
     fun provideContactService(): ContactService {
         return ContactServiceFactory.makeContactService(BuildConfig.DEBUG)
     }
+
+
+    /********* Redux *********/
+
+    @Provides
+    @Singleton
+    fun provideStore(): AppStore = Store(
+            reducer = ::appReducer,
+            state = null,
+            middleware = listOf()
+    )
 }

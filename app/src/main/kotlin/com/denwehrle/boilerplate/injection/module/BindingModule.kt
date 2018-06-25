@@ -7,9 +7,11 @@ import com.denwehrle.boilerplate.ui.contact.ContactActivity
 import com.denwehrle.boilerplate.ui.contact.detail.ContactDetailActivity
 import com.denwehrle.boilerplate.ui.contact.widget.ContactWidgetProvider
 import com.denwehrle.boilerplate.ui.contact.widget.ContactWidgetService
+import com.denwehrle.boilerplate.ui.contact2.ContactActivity2
 import com.denwehrle.boilerplate.ui.login.LoginActivity
 import com.denwehrle.boilerplate.ui.welcome.WelcomeActivity
 import com.denwehrle.boilerplate.ui.welcome.section.WelcomeSectionFragment
+import com.denwehrle.boilerplate.viewModel.LoadingViewModel
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -46,6 +48,13 @@ abstract class BindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun contactActivity(): ContactActivity
+
+    @PerActivity
+    @ContributesAndroidInjector()
+    abstract fun contactActivity2(): ContactActivity2
+
+    @PerActivity
+    abstract fun loadingViewModel(): LoadingViewModel
 
     @PerActivity
     @ContributesAndroidInjector

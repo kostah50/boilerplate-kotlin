@@ -1,6 +1,5 @@
 package com.denwehrle.boilerplate.redux.reducers
 
-import com.denwehrle.boilerplate.data.local.model.Contact
 import com.denwehrle.boilerplate.redux.actions.ClearSelectedContactAction
 import com.denwehrle.boilerplate.redux.actions.LoadContactsSuccessfulAction
 import com.denwehrle.boilerplate.redux.actions.SelectedContactAction

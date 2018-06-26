@@ -14,6 +14,7 @@ import com.denwehrle.boilerplate.R
 import com.denwehrle.boilerplate.data.local.model.Contact
 import com.denwehrle.boilerplate.redux.actions.LoadContactsAction
 import com.denwehrle.boilerplate.redux.actions.SelectedContactAction
+import com.denwehrle.boilerplate.redux.actions.SyncAction
 import com.denwehrle.boilerplate.redux.state.AppStore
 import com.denwehrle.boilerplate.ui.base.BaseActivity
 import com.denwehrle.boilerplate.util.extension.isNetworkConnected
@@ -22,6 +23,7 @@ import com.denwehrle.boilerplate.viewModel.ContactsViewModel
 import com.denwehrle.boilerplate.viewModel.LoadingViewModel
 import kotlinx.android.synthetic.main.activity_contact.*
 import kotlinx.android.synthetic.main.content_contact.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -59,7 +61,7 @@ class ContactActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
      */
     override fun onRefresh() {
         if (isNetworkConnected()) {
-            store.dispatch(LoadContactsAction())
+            store.dispatch(SyncAction(this))
         } else {
             swipeRefreshLayout.isRefreshing = false
             Snackbar.make(coordinatorLayout, R.string.snackbar_no_connection, Snackbar.LENGTH_LONG)
@@ -104,7 +106,7 @@ class ContactActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
         swipeRefreshLayout.setOnRefreshListener(this)
     }
 
-    private fun setUpViewModels(){
+    private fun setUpViewModels() {
         val isLoadingViewModel = ViewModelProviders.of(this, viewModelFactory).get(LoadingViewModel::class.java)
         isLoadingViewModel.isLoading().observe(this, Observer {
             swipeRefreshLayout.isRefreshing = it ?: false
@@ -117,13 +119,13 @@ class ContactActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
 
         val activeContactViewModel = ViewModelProviders.of(this, viewModelFactory).get(ActiveContactViewModel::class.java)
         activeContactViewModel.getActiveContact().observe(this, Observer {
-            if(it != null){
+            if (it != null) {
                 launchContactDetailActivity()
             }
         })
     }
 
-    private fun setUpUIComponents(){
+    private fun setUpUIComponents() {
         setUpToolbar()
         setUpRecyclerAdapter()
         setUpSwipeRefresh()
@@ -140,7 +142,7 @@ class ContactActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
         adapter.notifyDataSetChanged()
     }
 
-    private fun launchContactDetailActivity(){
+    private fun launchContactDetailActivity() {
         startActivity(Intent(this, com.denwehrle.boilerplate.ui.contact.detail.ContactDetailActivity::class.java))
         overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_left)
     }

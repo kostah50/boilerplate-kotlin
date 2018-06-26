@@ -15,7 +15,9 @@ import com.denwehrle.boilerplate.data.local.model.Contact
 import com.denwehrle.boilerplate.redux.actions.SelectedContactAction
 import com.denwehrle.boilerplate.redux.state.AppStore
 import com.denwehrle.boilerplate.ui.contact.ContactActivity
+import com.denwehrle.boilerplate.ui.contact.ContactNotificationActivity
 import com.denwehrle.boilerplate.ui.contact.detail.ContactDetailActivity
+import dagger.android.AndroidInjection
 import java.util.*
 import javax.inject.Inject
 
@@ -24,11 +26,6 @@ import javax.inject.Inject
  */
 @TargetApi(26)
 class NotificationUtils(context: Context) : ContextWrapper(context) {
-
-    /** Store to be able to dispatch actions */
-    @Inject
-    lateinit var store: AppStore
-
 
     private var notificationManager: NotificationManager? = null
 
@@ -59,9 +56,8 @@ class NotificationUtils(context: Context) : ContextWrapper(context) {
         val contentTitle = contact.toString()
         val contentText = contact.email
 
-        val openContactEntryIntent = Intent(this, ContactActivity::class.java)
-        store.dispatch(SelectedContactAction(contact))
-
+        val openContactEntryIntent = Intent(this, ContactNotificationActivity::class.java)
+        openContactEntryIntent.putExtra("contactEmail", contact.email)
 
         val pIntent = PendingIntent.getActivity(this, System.currentTimeMillis().toInt(), openContactEntryIntent, 0)
 

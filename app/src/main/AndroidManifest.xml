@@ -44,6 +44,8 @@
 
         <activity android:name=".ui.contact.ContactActivity" />
 
+        <activity android:name=".ui.contact.ContactNotificationActivity" />
+
         <activity
             android:name=".ui.contact.detail.ContactDetailActivity"
             android:parentActivityName=".ui.contact.ContactActivity">

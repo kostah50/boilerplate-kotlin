@@ -29,7 +29,7 @@ class ActiveContactViewModel @Inject constructor(private val store: AppStore) : 
     }
 
     override fun newState(state: Contact?) {
-        activeContact.value = state
+        activeContact.postValue(state)
     }
 
     fun getActiveContact(): LiveData<Contact?> {

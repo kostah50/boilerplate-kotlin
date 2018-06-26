@@ -29,7 +29,7 @@ class ContactsViewModel @Inject constructor(private val store: AppStore) : ViewM
     }
 
     override fun newState(state: List<Contact>) {
-        contacts.value = state
+        contacts.postValue(state)
     }
 
     fun getContacts(): LiveData<List<Contact>> {

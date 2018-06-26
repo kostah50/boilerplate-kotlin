@@ -1,5 +1,6 @@
 package com.denwehrle.boilerplate.redux.actions
 
+import android.content.Context
 import com.denwehrle.boilerplate.data.local.model.Contact
 import org.rekotlin.Action
 
@@ -12,6 +13,7 @@ import org.rekotlin.Action
 class StartLoadingAction: Action
 class StopLoadingAction: Action
 
+data class SyncAction(val context: Context): Action
 
 /**
  * Action sent when the user requests to load/refresh the users data

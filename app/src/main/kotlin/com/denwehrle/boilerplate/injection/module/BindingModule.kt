@@ -3,11 +3,11 @@ package com.denwehrle.boilerplate.injection.module
 import com.denwehrle.boilerplate.data.sync.service.ContactSyncService
 import com.denwehrle.boilerplate.injection.scope.PerActivity
 import com.denwehrle.boilerplate.injection.scope.PerFragment
-import com.denwehrle.boilerplate.ui.contact.ContactActivity
+import com.denwehrle.boilerplate.ui.contact.old.ContactActivityOld
 import com.denwehrle.boilerplate.ui.contact.detail.ContactDetailActivity
 import com.denwehrle.boilerplate.ui.contact.widget.ContactWidgetProvider
 import com.denwehrle.boilerplate.ui.contact.widget.ContactWidgetService
-import com.denwehrle.boilerplate.ui.contact2.ContactActivity2
+import com.denwehrle.boilerplate.ui.contact.ContactActivity
 import com.denwehrle.boilerplate.ui.login.LoginActivity
 import com.denwehrle.boilerplate.ui.welcome.WelcomeActivity
 import com.denwehrle.boilerplate.ui.welcome.section.WelcomeSectionFragment
@@ -47,11 +47,11 @@ abstract class BindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun contactActivity(): ContactActivity
+    abstract fun contactActivity(): ContactActivityOld
 
     @PerActivity
     @ContributesAndroidInjector()
-    abstract fun contactActivity2(): ContactActivity2
+    abstract fun contactActivity2(): ContactActivity
 
     @PerActivity
     abstract fun loadingViewModel(): LoadingViewModel

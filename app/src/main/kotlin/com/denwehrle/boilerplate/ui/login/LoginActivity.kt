@@ -11,7 +11,6 @@ import com.denwehrle.boilerplate.R
 import com.denwehrle.boilerplate.data.auth.AuthenticatorUtils
 import com.denwehrle.boilerplate.ui.base.BaseActivity
 import com.denwehrle.boilerplate.ui.contact.ContactActivity
-import com.denwehrle.boilerplate.ui.contact2.ContactActivity2
 import com.denwehrle.boilerplate.ui.welcome.WelcomeActivity
 import com.denwehrle.boilerplate.util.sync.SyncUtils
 import kotlinx.android.synthetic.main.content_login.*
@@ -87,7 +86,7 @@ class LoginActivity : BaseActivity(), LoginMvpView, View.OnClickListener {
 
             // Actions to do after 3 seconds, time to download data in background
             showProgress(false)
-            startActivity(Intent(this, ContactActivity2::class.java))
+            startActivity(Intent(this, ContactActivity::class.java))
             overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_left)
             finish()
         }, 3000)

@@ -10,6 +10,13 @@ import org.rekotlin.StoreSubscriber
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ * Contacts View Model
+ * This View Model listens to changes in the [AppStore] contacts and
+ * provides them to observing Views
+ *
+ * @author Miguel Costa
+ */
 class ContactsViewModel @Inject constructor(private val store: AppStore) : ViewModel(), StoreSubscriber<List<Contact>> {
     private var contacts: MutableLiveData<List<Contact>> = MutableLiveData()
 

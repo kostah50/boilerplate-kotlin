@@ -1,22 +1,18 @@
 package com.denwehrle.boilerplate.redux.reducers
 
 import com.denwehrle.boilerplate.redux.actions.*
-import com.denwehrle.boilerplate.redux.state.CounterState
 import org.rekotlin.Action
 
+/**
+ * @author Miguel Costa
+ */
 fun isLoadingReducer(action: Action, isLoading: Boolean?): Boolean {
     var state: Boolean = isLoading ?: false
-    when(action){
-        is StartLoadingAction -> {
+    when (action) {
+        is StartLoadingAction, is LoadContactsAction -> {
             state = true
         }
-        is LoadContactsAction -> {
-            state = true
-        }
-        is StopLoadingAction -> {
-            state = false
-        }
-        is LoadedContactsSuccessfulAction -> {
+        is StopLoadingAction, is LoadContactsSuccessfulAction, is LoadContactsFailedAction -> {
             state = false
         }
     }

@@ -42,17 +42,17 @@
 
         <activity android:name=".ui.login.LoginActivity" />
 
-        <activity android:name=".ui.contact.ContactActivity" />
+        <activity android:name=".ui.contact.old.ContactActivityOld" />
 
-        <activity android:name=".ui.contact2.ContactActivity2" />
+        <activity android:name=".ui.contact.ContactActivity" />
 
         <activity
             android:name=".ui.contact.detail.ContactDetailActivity"
-            android:parentActivityName=".ui.contact.ContactActivity">
+            android:parentActivityName=".ui.contact.old.ContactActivityOld">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.contact.ContactActivity" />
+                android:value=".ui.contact.old.ContactActivityOld" />
         </activity>
 
 

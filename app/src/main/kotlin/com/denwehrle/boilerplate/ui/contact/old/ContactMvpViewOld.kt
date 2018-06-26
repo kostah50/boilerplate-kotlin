@@ -1,4 +1,4 @@
-package com.denwehrle.boilerplate.ui.contact
+package com.denwehrle.boilerplate.ui.contact.old
 
 import com.denwehrle.boilerplate.data.local.model.Contact
 import com.denwehrle.boilerplate.ui.base.MvpView
@@ -6,7 +6,7 @@ import com.denwehrle.boilerplate.ui.base.MvpView
 /**
  * @author Dennis Wehrle
  */
-interface ContactMvpView : MvpView {
+interface ContactMvpViewOld : MvpView {
 
     fun setUpToolbar()
 

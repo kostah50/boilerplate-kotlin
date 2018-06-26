@@ -4,13 +4,18 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.denwehrle.boilerplate.viewModel.ContactsViewModel
 
-import com.denwehrle.boilerplate.viewModel.GithubViewModelFactory
+import com.denwehrle.boilerplate.viewModel.ExxetaViewModelFactory
 import com.denwehrle.boilerplate.viewModel.LoadingViewModel
 
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 
+/**
+ * Used for Dagger 2 Dependency Injection
+ *
+ * @author Miguel Costa
+ */
 @Module
 internal abstract class ViewModelModule {
     @Binds
@@ -24,5 +29,5 @@ internal abstract class ViewModelModule {
     internal abstract fun bindContactsViewModel(contactsViewModel: ContactsViewModel): ViewModel
 
     @Binds
-    internal abstract fun bindViewModelFactory(factory: GithubViewModelFactory): ViewModelProvider.Factory
+    internal abstract fun bindViewModelFactory(factory: ExxetaViewModelFactory): ViewModelProvider.Factory
 }

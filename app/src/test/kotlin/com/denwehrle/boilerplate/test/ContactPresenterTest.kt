@@ -3,8 +3,8 @@ package com.denwehrle.boilerplate.test
 import com.denwehrle.boilerplate.data.local.model.Contact
 import com.denwehrle.boilerplate.data.manager.contact.ContactDataManager
 import com.denwehrle.boilerplate.factory.ContactFactory
-import com.denwehrle.boilerplate.ui.contact.ContactMvpView
-import com.denwehrle.boilerplate.ui.contact.ContactPresenter
+import com.denwehrle.boilerplate.ui.contact.old.ContactMvpViewOld
+import com.denwehrle.boilerplate.ui.contact.old.ContactPresenterOld
 import com.denwehrle.boilerplate.util.helper.RxSchedulersOverrideRule
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Flowable
@@ -29,17 +29,17 @@ class ContactPresenterTest {
     @JvmField
     val overrideSchedulersRule = RxSchedulersOverrideRule()
 
-    lateinit var presenter: ContactPresenter
+    lateinit var presenter: ContactPresenterOld
 
     @Mock
-    private lateinit var mockMvpView: ContactMvpView
+    private lateinit var mockMvpView: ContactMvpViewOld
 
     @Mock
     private lateinit var mockContactDataManager: ContactDataManager
 
     @Before
     fun setUp() {
-        presenter = ContactPresenter(mockContactDataManager)
+        presenter = ContactPresenterOld(mockContactDataManager)
         presenter.attachView(mockMvpView)
     }
 
@@ -54,8 +54,8 @@ class ContactPresenterTest {
         whenever(mockContactDataManager.getContacts()).thenReturn(Flowable.just(data))
 
         presenter.loadData()
-        verify<ContactMvpView>(mockMvpView).showData(data)
-        verify<ContactMvpView>(mockMvpView, never()).showError()
+        verify<ContactMvpViewOld>(mockMvpView).showData(data)
+        verify<ContactMvpViewOld>(mockMvpView, never()).showError()
     }
 
     /*@Test
@@ -63,8 +63,8 @@ class ContactPresenterTest {
         whenever(mockContactDataManager.getContacts()).thenReturn(Flowable.just(emptyList()))
 
         presenter.loadData()
-        verify<ContactMvpView>(mockMvpView, never()).showData(ArgumentMatchers.anyList<Contact>())
-        verify<ContactMvpView>(mockMvpView, never()).showError()
+        verify<ContactMvpViewOld>(mockMvpView, never()).showData(ArgumentMatchers.anyList<Contact>())
+        verify<ContactMvpViewOld>(mockMvpView, never()).showError()
     }*/
 
     @Test
@@ -72,7 +72,7 @@ class ContactPresenterTest {
         whenever(mockContactDataManager.getContacts()).thenReturn(Flowable.error<List<Contact>>(RuntimeException()))
 
         presenter.loadData()
-        verify<ContactMvpView>(mockMvpView).showError()
-        verify<ContactMvpView>(mockMvpView, never()).showData(ArgumentMatchers.anyList<Contact>())
+        verify<ContactMvpViewOld>(mockMvpView).showError()
+        verify<ContactMvpViewOld>(mockMvpView, never()).showData(ArgumentMatchers.anyList<Contact>())
     }
 }

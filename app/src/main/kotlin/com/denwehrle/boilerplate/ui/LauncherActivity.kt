@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import com.denwehrle.boilerplate.data.auth.AuthenticatorUtils
 import com.denwehrle.boilerplate.ui.contact.ContactActivity
-import com.denwehrle.boilerplate.ui.contact2.ContactActivity2
 import com.denwehrle.boilerplate.ui.login.LoginActivity
 
 /**
@@ -18,7 +17,7 @@ class LauncherActivity : Activity() {
         super.onCreate(savedInstanceState)
 
         if (AuthenticatorUtils.getAccount(this) != null) {
-            startActivity(Intent(this, ContactActivity2::class.java))
+            startActivity(Intent(this, ContactActivity::class.java))
         } else {
             startAuthenticatorActivity(this, false)
         }

@@ -1,4 +1,4 @@
-package com.denwehrle.boilerplate.ui.contact
+package com.denwehrle.boilerplate.ui.contact.old
 
 import com.denwehrle.boilerplate.data.manager.contact.ContactDataManager
 import com.denwehrle.boilerplate.ui.base.BasePresenter
@@ -15,13 +15,13 @@ import javax.inject.Inject
  *
  * @author Dennis Wehrle
  */
-class ContactPresenter @Inject constructor(private val dataManager: ContactDataManager) : BasePresenter<ContactMvpView>() {
+class ContactPresenterOld @Inject constructor(private val dataManager: ContactDataManager) : BasePresenter<ContactMvpViewOld>() {
 
     /**
      * If we attach the Presenter there are tasks we can start regardless
      * the specific data, so let's do this here.
      */
-    override fun attachView(mvpView: ContactMvpView) {
+    override fun attachView(mvpView: ContactMvpViewOld) {
         super.attachView(mvpView)
 
         this.mvpView.setUpToolbar()

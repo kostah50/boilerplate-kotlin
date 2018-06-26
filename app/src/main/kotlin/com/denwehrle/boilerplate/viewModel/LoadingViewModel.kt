@@ -9,6 +9,13 @@ import org.rekotlin.StoreSubscriber
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ * Loading View Model
+ * This View Model listens to changes in the [AppStore] isLoading and
+ * provides them to observing Views
+ *
+ * @author Miguel Costa
+ */
 class LoadingViewModel @Inject constructor(private val store: AppStore) : ViewModel(), StoreSubscriber<Boolean> {
     private var isLoading: MutableLiveData<Boolean> = MutableLiveData()
 

@@ -46,11 +46,11 @@
 
         <activity
             android:name=".ui.contact.detail.ContactDetailActivity"
-            android:parentActivityName=".ui.contact.old.ContactActivityOld">
+            android:parentActivityName=".ui.contact.ContactActivity">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.contact.old.ContactActivityOld" />
+                android:value=".ui.contact.ContactActivity" />
         </activity>
 
 

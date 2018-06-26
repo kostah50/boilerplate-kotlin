@@ -5,6 +5,7 @@ import com.denwehrle.boilerplate.TestApp
 import com.denwehrle.boilerplate.data.manager.contact.ContactDataManager
 import com.denwehrle.boilerplate.injection.module.BindingModule
 import com.denwehrle.boilerplate.injection.module.TestAppModule
+import com.denwehrle.boilerplate.injection.module.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
@@ -14,7 +15,7 @@ import javax.inject.Singleton
  * @author Dennis Wehrle
  */
 @Singleton
-@Component(modules = [TestAppModule::class, BindingModule::class, AndroidSupportInjectionModule::class])
+@Component(modules = [ViewModelModule::class, TestAppModule::class, BindingModule::class, AndroidSupportInjectionModule::class])
 interface TestAppComponent : AppComponent {
 
     @Component.Builder

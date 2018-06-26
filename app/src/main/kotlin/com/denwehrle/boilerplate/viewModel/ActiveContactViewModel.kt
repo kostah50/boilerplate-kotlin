@@ -17,23 +17,23 @@ import javax.inject.Inject
  *
  * @author Miguel Costa
  */
-class ContactsViewModel @Inject constructor(private val store: AppStore) : ViewModel(), StoreSubscriber<List<Contact>> {
-    private var contacts: MutableLiveData<List<Contact>> = MutableLiveData()
+class ActiveContactViewModel @Inject constructor(private val store: AppStore) : ViewModel(), StoreSubscriber<Contact?> {
+    private var activeContact: MutableLiveData<Contact?> = MutableLiveData()
 
     init {
         store.subscribe(this){
             it.select {
-                it.contactsState.contacts
+                it.contactsState.activeContact
             }.skipRepeats()
         }
     }
 
-    override fun newState(state: List<Contact>) {
-        contacts.postValue(state)
+    override fun newState(state: Contact?) {
+        activeContact.postValue(state)
     }
 
-    fun getContacts(): LiveData<List<Contact>> {
-        return contacts
+    fun getActiveContact(): LiveData<Contact?> {
+        return activeContact
     }
 
     override fun onCleared() {

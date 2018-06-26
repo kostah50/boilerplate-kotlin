@@ -4,12 +4,14 @@ import com.denwehrle.boilerplate.data.sync.service.ContactSyncService
 import com.denwehrle.boilerplate.injection.scope.PerActivity
 import com.denwehrle.boilerplate.injection.scope.PerFragment
 import com.denwehrle.boilerplate.ui.contact.ContactActivity
+import com.denwehrle.boilerplate.ui.contact.ContactNotificationActivity
 import com.denwehrle.boilerplate.ui.contact.detail.ContactDetailActivity
 import com.denwehrle.boilerplate.ui.contact.widget.ContactWidgetProvider
 import com.denwehrle.boilerplate.ui.contact.widget.ContactWidgetService
 import com.denwehrle.boilerplate.ui.login.LoginActivity
 import com.denwehrle.boilerplate.ui.welcome.WelcomeActivity
 import com.denwehrle.boilerplate.ui.welcome.section.WelcomeSectionFragment
+import com.denwehrle.boilerplate.util.notification.NotificationUtils
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -50,6 +52,10 @@ abstract class BindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun contactDetailActivity(): ContactDetailActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun contactNotificationActivity(): ContactNotificationActivity
 
 
     /********* Service *********/

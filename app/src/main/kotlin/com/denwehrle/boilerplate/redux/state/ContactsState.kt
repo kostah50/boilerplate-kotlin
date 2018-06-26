@@ -1,5 +1,6 @@
 package com.denwehrle.boilerplate.redux.state
 
+import com.denwehrle.boilerplate.data.local.model.Contact
 import org.rekotlin.StateType
 
 /**
@@ -10,6 +11,7 @@ import org.rekotlin.StateType
  *
  * @author Miguel Costa
  */
-data class CounterState (
-        val counter: Int = 0
+data class ContactsState (
+        val contacts: List<Contact> = listOf(),
+        val activeContact: Contact? = null
 ): StateType

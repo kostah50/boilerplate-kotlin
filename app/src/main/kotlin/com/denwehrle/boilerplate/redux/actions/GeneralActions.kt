@@ -1,7 +1,8 @@
 package com.denwehrle.boilerplate.redux.actions
 
-import org.rekotlin.Action
+import android.content.Context
 import com.denwehrle.boilerplate.data.local.model.Contact
+import org.rekotlin.Action
 
 /**
  * General Loading Actions
@@ -12,6 +13,7 @@ import com.denwehrle.boilerplate.data.local.model.Contact
 class StartLoadingAction: Action
 class StopLoadingAction: Action
 
+data class SyncAction(val context: Context): Action
 
 /**
  * Action sent when the user requests to load/refresh the users data
@@ -23,3 +25,11 @@ data class LoadContactsAction(val unit: Unit = Unit): Action
  * */
 data class LoadContactsSuccessfulAction(val contacts: List<Contact>): Action
 class LoadContactsFailedAction: Action
+
+/**
+ * Actions sent when a contact is selected or dismissed
+ * */
+data class SelectedContactAction(val contact: Contact): Action
+class ClearSelectedContactAction: Action
+
+

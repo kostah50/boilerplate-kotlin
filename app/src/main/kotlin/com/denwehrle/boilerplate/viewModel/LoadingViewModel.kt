@@ -28,7 +28,7 @@ class LoadingViewModel @Inject constructor(private val store: AppStore) : ViewMo
     }
 
     override fun newState(state: Boolean) {
-        isLoading.value = state
+        isLoading.postValue(state)
     }
 
     fun isLoading(): LiveData<Boolean> {

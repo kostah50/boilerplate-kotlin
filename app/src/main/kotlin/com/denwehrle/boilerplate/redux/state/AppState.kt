@@ -7,7 +7,6 @@ import com.denwehrle.boilerplate.data.local.model.Contact
  * @author Miguel Costa
  */
 data class AppState (
-        val contacts: List<Contact> = listOf(),
-        val isLoading: Boolean = false
-//        val CounterState: CounterState = CounterState() - This is an example of a Composed State
+        val isLoading: Boolean = false,
+        val contactsState: ContactsState = ContactsState()
 ): StateType

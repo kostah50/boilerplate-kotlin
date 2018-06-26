@@ -12,14 +12,23 @@ import android.graphics.Color
 import android.support.v4.app.NotificationCompat
 import com.denwehrle.boilerplate.R
 import com.denwehrle.boilerplate.data.local.model.Contact
-import com.denwehrle.boilerplate.ui.contact.detailOld.ContactDetailActivity
+import com.denwehrle.boilerplate.redux.actions.SelectedContactAction
+import com.denwehrle.boilerplate.redux.state.AppStore
+import com.denwehrle.boilerplate.ui.contact.ContactActivity
+import com.denwehrle.boilerplate.ui.contact.detail.ContactDetailActivity
 import java.util.*
+import javax.inject.Inject
 
 /**
  * @author Dennis Wehrle
  */
 @TargetApi(26)
 class NotificationUtils(context: Context) : ContextWrapper(context) {
+
+    /** Store to be able to dispatch actions */
+    @Inject
+    lateinit var store: AppStore
+
 
     private var notificationManager: NotificationManager? = null
 
@@ -50,8 +59,9 @@ class NotificationUtils(context: Context) : ContextWrapper(context) {
         val contentTitle = contact.toString()
         val contentText = contact.email
 
-        val openContactEntryIntent = Intent(this, ContactDetailActivity::class.java)
-        openContactEntryIntent.putExtra("email", contact.email)
+        val openContactEntryIntent = Intent(this, ContactActivity::class.java)
+        store.dispatch(SelectedContactAction(contact))
+
 
         val pIntent = PendingIntent.getActivity(this, System.currentTimeMillis().toInt(), openContactEntryIntent, 0)
 

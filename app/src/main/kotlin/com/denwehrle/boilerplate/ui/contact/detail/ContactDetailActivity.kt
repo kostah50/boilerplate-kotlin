@@ -10,12 +10,8 @@ import com.denwehrle.boilerplate.redux.actions.ClearSelectedContactAction
 import com.denwehrle.boilerplate.redux.state.AppStore
 import com.denwehrle.boilerplate.ui.base.BaseDetailActivity
 import com.denwehrle.boilerplate.viewModel.ActiveContactViewModel
-import com.denwehrle.boilerplate.viewModel.ContactsViewModel
-import com.denwehrle.boilerplate.viewModel.LoadingViewModel
 import kotlinx.android.synthetic.main.activity_contact_detail.*
-import kotlinx.android.synthetic.main.content_contact.*
 import kotlinx.android.synthetic.main.content_contact_detail.*
-import timber.log.Timber
 import javax.inject.Inject
 
 /**

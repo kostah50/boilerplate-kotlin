@@ -1,8 +1,7 @@
 package com.denwehrle.boilerplate.redux.actions
 
-import android.app.Activity
-import org.rekotlin.Action
 import com.denwehrle.boilerplate.data.local.model.Contact
+import org.rekotlin.Action
 
 /**
  * General Loading Actions
@@ -28,7 +27,7 @@ class LoadContactsFailedAction: Action
 /**
  * Actions sent when a contact is selected or dismissed
  * */
-data class SelectedContactAction(val contact: Contact, val activity: Activity): Action
+data class SelectedContactAction(val contact: Contact): Action
 class ClearSelectedContactAction: Action
 
 

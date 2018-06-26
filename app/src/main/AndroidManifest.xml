@@ -45,15 +45,6 @@
         <activity android:name=".ui.contact.ContactActivity" />
 
         <activity
-            android:name=".ui.contact.detailOld.ContactDetailActivity"
-            android:parentActivityName=".ui.contact.ContactActivity">
-
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.contact.ContactActivity" />
-        </activity>
-
-        <activity
             android:name=".ui.contact.detail.ContactDetailActivity"
             android:parentActivityName=".ui.contact.ContactActivity">
 

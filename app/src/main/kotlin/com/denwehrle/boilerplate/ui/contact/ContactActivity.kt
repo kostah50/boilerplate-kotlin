@@ -16,14 +16,12 @@ import com.denwehrle.boilerplate.redux.actions.LoadContactsAction
 import com.denwehrle.boilerplate.redux.actions.SelectedContactAction
 import com.denwehrle.boilerplate.redux.state.AppStore
 import com.denwehrle.boilerplate.ui.base.BaseActivity
-import com.denwehrle.boilerplate.ui.contact.detailOld.ContactDetailActivity
 import com.denwehrle.boilerplate.util.extension.isNetworkConnected
 import com.denwehrle.boilerplate.viewModel.ActiveContactViewModel
 import com.denwehrle.boilerplate.viewModel.ContactsViewModel
 import com.denwehrle.boilerplate.viewModel.LoadingViewModel
 import kotlinx.android.synthetic.main.activity_contact.*
 import kotlinx.android.synthetic.main.content_contact.*
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -89,7 +87,7 @@ class ContactActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
         recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
 
         adapter.onItemClick = {
-            store.dispatch(SelectedContactAction(it, this))
+            store.dispatch(SelectedContactAction(it))
         }
     }
 

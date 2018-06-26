@@ -36,6 +36,7 @@ class NetworkMiddleware(private val dataManager: ContactDataManager) : Middlewar
 
     private fun getContacts(dispatch: DispatchFunction) {
         Timber.d("NetworkMiddleware - getContacts")
+//        dataManager.getContacts()
         dataManager.syncContacts()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

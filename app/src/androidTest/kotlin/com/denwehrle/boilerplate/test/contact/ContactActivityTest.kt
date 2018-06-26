@@ -12,7 +12,7 @@ import com.denwehrle.boilerplate.R
 import com.denwehrle.boilerplate.TestApp
 import com.denwehrle.boilerplate.data.local.model.Contact
 import com.denwehrle.boilerplate.factory.ContactFactory
-import com.denwehrle.boilerplate.ui.contact.old.ContactActivityOld
+import com.denwehrle.boilerplate.ui.contact.ContactActivity
 import com.denwehrle.boilerplate.util.helper.RecyclerViewMatcher
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Flowable
@@ -30,7 +30,7 @@ class ContactActivityTest {
 
     @Rule
     @JvmField
-    val activity = ActivityTestRule<ContactActivityOld>(ContactActivityOld::class.java, false, false)
+    val activity = ActivityTestRule<ContactActivity>(ContactActivity::class.java, false, false)
 
     @Test
     fun activityLaunches() {
@@ -43,7 +43,6 @@ class ContactActivityTest {
         val contacts = ContactFactory.makeContactList(1)
         stubGetContacts(Flowable.just(contacts))
         activity.launchActivity(Intent().putExtra("testMode", true))
-
         checkDetailsDisplay(contacts[0], 0)
     }
 
@@ -59,7 +58,6 @@ class ContactActivityTest {
             checkDetailsDisplay(contact, index)
         }
     }
-
 
     /********* Helper Methods *********/
 

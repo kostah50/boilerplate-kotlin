@@ -12,7 +12,7 @@ import android.graphics.Color
 import android.support.v4.app.NotificationCompat
 import com.denwehrle.boilerplate.R
 import com.denwehrle.boilerplate.data.local.model.Contact
-import com.denwehrle.boilerplate.ui.contact.detail.ContactDetailActivity
+import com.denwehrle.boilerplate.ui.contact.detailOld.ContactDetailActivity
 import java.util.*
 
 /**

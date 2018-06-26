@@ -1,4 +1,4 @@
-package com.denwehrle.boilerplate.ui.contact.detail
+package com.denwehrle.boilerplate.ui.contact.detailOld
 
 import com.denwehrle.boilerplate.data.manager.contact.ContactDataManager
 import com.denwehrle.boilerplate.ui.base.BasePresenter

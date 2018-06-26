@@ -1,5 +1,6 @@
 package com.denwehrle.boilerplate.redux.actions
 
+import android.app.Activity
 import org.rekotlin.Action
 import com.denwehrle.boilerplate.data.local.model.Contact
 
@@ -23,3 +24,10 @@ data class LoadContactsAction(val unit: Unit = Unit): Action
  * */
 data class LoadContactsSuccessfulAction(val contacts: List<Contact>): Action
 class LoadContactsFailedAction: Action
+
+/**
+ * Action sent when a contact is selected
+ * */
+data class SelectedContactAction(val contact: Contact, val activity: Activity): Action
+
+

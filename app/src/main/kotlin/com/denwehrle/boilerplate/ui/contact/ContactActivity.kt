@@ -6,7 +6,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.Message
 import android.support.design.widget.Snackbar
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
@@ -14,9 +13,10 @@ import android.support.v7.widget.LinearLayoutManager
 import com.denwehrle.boilerplate.R
 import com.denwehrle.boilerplate.data.local.model.Contact
 import com.denwehrle.boilerplate.redux.actions.LoadContactsAction
+import com.denwehrle.boilerplate.redux.actions.SelectedContactAction
 import com.denwehrle.boilerplate.redux.state.AppStore
 import com.denwehrle.boilerplate.ui.base.BaseActivity
-import com.denwehrle.boilerplate.ui.contact.detail.ContactDetailActivity
+import com.denwehrle.boilerplate.ui.contact.detailOld.ContactDetailActivity
 import com.denwehrle.boilerplate.util.extension.isNetworkConnected
 import com.denwehrle.boilerplate.viewModel.ContactsViewModel
 import com.denwehrle.boilerplate.viewModel.LoadingViewModel
@@ -88,8 +88,7 @@ class ContactActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
         recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
 
         adapter.onItemClick = {
-            startActivity(Intent(applicationContext, ContactDetailActivity::class.java).putExtra("email", it.email))
-            overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_left)
+            store.dispatch(SelectedContactAction(it, this))
         }
     }
 

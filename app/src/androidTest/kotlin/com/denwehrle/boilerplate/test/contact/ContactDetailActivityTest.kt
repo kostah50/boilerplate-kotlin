@@ -6,7 +6,7 @@ import android.support.test.runner.AndroidJUnit4
 import com.denwehrle.boilerplate.TestApp
 import com.denwehrle.boilerplate.data.local.model.Contact
 import com.denwehrle.boilerplate.factory.ContactFactory
-import com.denwehrle.boilerplate.ui.contact.detail.ContactDetailActivity
+import com.denwehrle.boilerplate.ui.contact.detailOld.ContactDetailActivity
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Single
 import org.junit.Rule

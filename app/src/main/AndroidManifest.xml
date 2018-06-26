@@ -42,8 +42,6 @@
 
         <activity android:name=".ui.login.LoginActivity" />
 
-        <activity android:name=".ui.contact.old.ContactActivityOld" />
-
         <activity android:name=".ui.contact.ContactActivity" />
 
         <activity

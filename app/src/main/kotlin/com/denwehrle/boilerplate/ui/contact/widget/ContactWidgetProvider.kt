@@ -13,7 +13,7 @@ import android.widget.RemoteViews
 import com.denwehrle.boilerplate.BuildConfig
 import com.denwehrle.boilerplate.R
 import com.denwehrle.boilerplate.injection.module.BindingModule
-import com.denwehrle.boilerplate.ui.contact.old.ContactActivityOld
+import com.denwehrle.boilerplate.ui.contact.ContactActivity
 import dagger.android.AndroidInjection
 import timber.log.Timber
 import java.util.*
@@ -84,7 +84,7 @@ class ContactWidgetProvider : AppWidgetProvider() {
         views.setViewVisibility(R.id.progress, View.VISIBLE)
 
         // Create an Intent to launch ContactActivityOld when widget header is clicked
-        val scheduleIntent = Intent(context, ContactActivityOld::class.java)
+        val scheduleIntent = Intent(context, ContactActivity::class.java)
         val schedulePendingIntent = PendingIntent.getActivity(context, 0, scheduleIntent, 0)
         views.setOnClickPendingIntent(R.id.header, schedulePendingIntent)
 

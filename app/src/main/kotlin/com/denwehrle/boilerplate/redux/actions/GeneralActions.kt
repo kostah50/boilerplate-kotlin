@@ -26,8 +26,9 @@ data class LoadContactsSuccessfulAction(val contacts: List<Contact>): Action
 class LoadContactsFailedAction: Action
 
 /**
- * Action sent when a contact is selected
+ * Actions sent when a contact is selected or dismissed
  * */
 data class SelectedContactAction(val contact: Contact, val activity: Activity): Action
+class ClearSelectedContactAction: Action
 
 

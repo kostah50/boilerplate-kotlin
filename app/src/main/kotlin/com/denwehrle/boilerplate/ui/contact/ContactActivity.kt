@@ -18,6 +18,7 @@ import com.denwehrle.boilerplate.redux.state.AppStore
 import com.denwehrle.boilerplate.ui.base.BaseActivity
 import com.denwehrle.boilerplate.ui.contact.detailOld.ContactDetailActivity
 import com.denwehrle.boilerplate.util.extension.isNetworkConnected
+import com.denwehrle.boilerplate.viewModel.ActiveContactViewModel
 import com.denwehrle.boilerplate.viewModel.ContactsViewModel
 import com.denwehrle.boilerplate.viewModel.LoadingViewModel
 import kotlinx.android.synthetic.main.activity_contact.*
@@ -115,6 +116,13 @@ class ContactActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
         contactsViewModel.getContacts().observe(this, Observer {
             showData(it ?: listOf())
         })
+
+        val activeContactViewModel = ViewModelProviders.of(this, viewModelFactory).get(ActiveContactViewModel::class.java)
+        activeContactViewModel.getActiveContact().observe(this, Observer {
+            if(it != null){
+                launchContactDetailActivity()
+            }
+        })
     }
 
     private fun setUpUIComponents(){
@@ -134,11 +142,8 @@ class ContactActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
         adapter.notifyDataSetChanged()
     }
 
-    /**
-     * If the data can not be loaded we react to the error accordingly.
-     */
-    fun showError(errorMessage: String) {
-        Timber.e("Something went wrong. Data could not be loaded.")
-        Timber.e(errorMessage)
+    private fun launchContactDetailActivity(){
+        startActivity(Intent(this, com.denwehrle.boilerplate.ui.contact.detail.ContactDetailActivity::class.java))
+        overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_left)
     }
 }

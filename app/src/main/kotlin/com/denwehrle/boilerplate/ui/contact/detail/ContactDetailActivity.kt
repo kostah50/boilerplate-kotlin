@@ -6,6 +6,8 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.denwehrle.boilerplate.R
 import com.denwehrle.boilerplate.data.local.model.Contact
+import com.denwehrle.boilerplate.redux.actions.ClearSelectedContactAction
+import com.denwehrle.boilerplate.redux.state.AppStore
 import com.denwehrle.boilerplate.ui.base.BaseDetailActivity
 import com.denwehrle.boilerplate.viewModel.ActiveContactViewModel
 import com.denwehrle.boilerplate.viewModel.ContactsViewModel
@@ -20,6 +22,10 @@ import javax.inject.Inject
  * @author Miguel Costa
  */
 class ContactDetailActivity : BaseDetailActivity() {
+    /** Store to be able to dispatch actions */
+    @Inject
+    lateinit var store: AppStore
+
     /** View Model Factory for the MVVM model and Dagger 2 injections */
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -61,10 +67,8 @@ class ContactDetailActivity : BaseDetailActivity() {
         textName.text = contact?.toString()
     }
 
-    /**
-     * If the data can not be loaded we react to the error accordingly.
-     */
-    fun showError() {
-        Timber.e("Something went wrong. Data could not be loaded.")
+    override fun onDestroy() {
+        store.dispatch(ClearSelectedContactAction())
+        super.onDestroy()
     }
 }

@@ -6,6 +6,8 @@ import android.arch.lifecycle.ViewModel
 import android.util.Log
 import com.denwehrle.boilerplate.R
 import com.denwehrle.boilerplate.data.local.helper.PreferenceHelper
+import com.denwehrle.boilerplate.data.manager.base.BaseDataManager
+import com.denwehrle.boilerplate.data.manager.login.LoginDataManager
 import com.denwehrle.boilerplate.data.remote.model.WelcomeData
 import com.denwehrle.boilerplate.redux.state.AppStore
 import org.rekotlin.StoreSubscriber

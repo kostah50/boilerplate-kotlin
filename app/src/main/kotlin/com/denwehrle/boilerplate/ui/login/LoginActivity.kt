@@ -2,6 +2,9 @@ package com.denwehrle.boilerplate.ui.login
 
 import android.accounts.Account
 import android.accounts.AccountManager
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -13,6 +16,7 @@ import com.denwehrle.boilerplate.ui.base.BaseActivity
 import com.denwehrle.boilerplate.ui.contact.ContactActivity
 import com.denwehrle.boilerplate.ui.welcome.WelcomeActivity
 import com.denwehrle.boilerplate.util.sync.SyncUtils
+import com.denwehrle.boilerplate.viewModel.LoginViewModel
 import kotlinx.android.synthetic.main.content_login.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -29,16 +33,29 @@ class LoginActivity : BaseActivity(), LoginMvpView, View.OnClickListener {
     @Inject
     lateinit var presenter: LoginPresenter
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         presenter.attachView(this)
 
-        if (!presenter.isWelcomeDone()) {
-            startActivity(Intent(this, WelcomeActivity::class.java))
-            finish()
-        }
+        val loginViewModel = ViewModelProviders.of(this@LoginActivity, viewModelFactory).get(LoginViewModel::class.java)
+        loginViewModel.isWelcomeDone().observe(this@LoginActivity, Observer {
+            it?.let {
+                if(!it) {
+                    startActivity(Intent(this@LoginActivity, WelcomeActivity::class.java))
+                    finish()
+                }
+            }
+        })
+
+//        if (!presenter.isWelcomeDone()) {
+//            startActivity(Intent(this, WelcomeActivity::class.java))
+//            finish()
+//        }
     }
 
     override fun onClick(view: View) {
@@ -85,7 +102,7 @@ class LoginActivity : BaseActivity(), LoginMvpView, View.OnClickListener {
         Handler().postDelayed({
 
             // Actions to do after 3 seconds, time to download data in background
-            showProgress(false)
+            //showProgress(false)
             startActivity(Intent(this, ContactActivity::class.java))
             overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_left)
             finish()

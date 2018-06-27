@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "e3c4a9ec3c54179a6e12549ffb92ab17",
+    "version": 2,
+    "identityHash": "dc2f8f1d27af7f7be578e196641227b5",
     "entities": [
       {
         "tableName": "Contact",
@@ -43,8 +43,8 @@
         "foreignKeys": []
       },
       {
-        "tableName": "AppStateEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`index` TEXT NOT NULL, `isLoading` INTEGER NOT NULL, PRIMARY KEY(`index`))",
+        "tableName": "AppState",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`index` TEXT NOT NULL, `isLoading` INTEGER NOT NULL, `contactsState` TEXT NOT NULL, PRIMARY KEY(`index`))",
         "fields": [
           {
             "fieldPath": "index",
@@ -56,6 +56,12 @@
             "fieldPath": "isLoading",
             "columnName": "isLoading",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contactsState",
+            "columnName": "contactsState",
+            "affinity": "TEXT",
             "notNull": true
           }
         ],
@@ -71,7 +77,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e3c4a9ec3c54179a6e12549ffb92ab17\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"dc2f8f1d27af7f7be578e196641227b5\")"
     ]
   }
 }

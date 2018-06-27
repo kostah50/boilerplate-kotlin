@@ -5,17 +5,20 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import android.content.Context
+import com.denwehrle.boilerplate.data.local.dao.AppStateDao
 import com.denwehrle.boilerplate.data.local.dao.ContactDao
 import com.denwehrle.boilerplate.data.local.model.Contact
+import com.denwehrle.boilerplate.redux.state.AppState
 
 /**
  * @author Dennis Wehrle
  */
-@Database(entities = [Contact::class], version = 1)
+@Database(entities = [Contact::class, AppState::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class DatabaseHelper : RoomDatabase() {
 
     abstract fun contactDao(): ContactDao
+    abstract fun appStateDao(): AppStateDao
 
     companion object {
 

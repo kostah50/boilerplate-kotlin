@@ -6,11 +6,12 @@ import com.denwehrle.boilerplate.data.local.model.Contact
 import com.denwehrle.boilerplate.data.manager.base.BaseDataManager
 import com.denwehrle.boilerplate.data.mapper.ContactMapper
 import com.denwehrle.boilerplate.data.remote.endpoints.ContactService
-import com.denwehrle.boilerplate.redux.actions.LoadContactsSuccessfulAction
+import com.denwehrle.boilerplate.redux.actions.SyncContactsSuccessfulAction
 import com.denwehrle.boilerplate.redux.state.AppStore
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
+import io.reactivex.SingleSource
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -68,7 +69,8 @@ class ContactDataManager @Inject constructor(preferenceHelper: PreferenceHelper,
                     }
                 }
                 .flatMap {
-                    saveContacts(it, store).toSingle { it }
+                    var sortedList = it.sortedBy { it.firstName + " " + it.lastName }
+                    saveContacts(sortedList, store).toSingle { sortedList }
                 }
     }
 
@@ -77,11 +79,11 @@ class ContactDataManager @Inject constructor(preferenceHelper: PreferenceHelper,
      * so we can call it inside the .flatMap() operator and still return our initial data.
      */
     private fun saveContacts(contacts: List<Contact>, store: AppStore): Completable {
-        store.dispatch(LoadContactsSuccessfulAction(contacts))
         return Completable.defer {
-            contacts.forEach {
-                databaseHelper.contactDao().insertAll(it)
-            }
+            store.dispatch(SyncContactsSuccessfulAction(contacts))
+//            contacts.forEach {
+//                databaseHelper.contactDao().insertAll(it)
+//            }
             Completable.complete()
         }
     }

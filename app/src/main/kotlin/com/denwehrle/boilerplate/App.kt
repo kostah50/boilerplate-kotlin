@@ -9,7 +9,7 @@ import android.os.Build
 import android.support.multidex.MultiDex
 import android.support.v4.app.Fragment
 import com.denwehrle.boilerplate.injection.component.DaggerAppComponent
-import com.denwehrle.boilerplate.redux.actions.LoadState
+import com.denwehrle.boilerplate.redux.actions.LoadPersistentStateAction
 import com.denwehrle.boilerplate.redux.state.AppStore
 import com.denwehrle.boilerplate.util.notification.NotificationUtils
 import com.facebook.stetho.Stetho
@@ -61,7 +61,7 @@ class App : Application(), HasActivityInjector, HasServiceInjector, HasBroadcast
             NotificationUtils(applicationContext).createChannels()
         }
 
-        store.dispatch(LoadState())
+        store.dispatch(LoadPersistentStateAction())
     }
 
     override fun attachBaseContext(base: Context) {

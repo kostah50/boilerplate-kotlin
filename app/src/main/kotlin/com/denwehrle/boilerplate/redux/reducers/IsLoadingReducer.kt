@@ -12,7 +12,7 @@ fun isLoadingReducer(action: Action, isLoading: Boolean?): Boolean {
         is StartLoadingAction, is SyncAction -> {
             state = true
         }
-        is StopLoadingAction, is LoadContactsSuccessfulAction, is LoadContactsFailedAction -> {
+        is StopLoadingAction, is SyncContactsSuccessfulAction -> {
             state = false
         }
     }

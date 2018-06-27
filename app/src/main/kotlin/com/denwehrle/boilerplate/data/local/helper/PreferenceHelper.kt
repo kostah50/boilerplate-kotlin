@@ -38,4 +38,5 @@ class PreferenceHelper @Inject constructor(context: Context) {
     var welcomeDone: Boolean
         get() = preferences.getBoolean(PREF_KEY_WELCOME_DONE, false)
         set(value) = preferences.edit().putBoolean(PREF_KEY_WELCOME_DONE, value).apply()
+
 }

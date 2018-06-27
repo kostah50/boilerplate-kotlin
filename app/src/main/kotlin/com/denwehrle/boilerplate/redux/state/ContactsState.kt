@@ -1,5 +1,7 @@
 package com.denwehrle.boilerplate.redux.state
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import com.denwehrle.boilerplate.data.local.model.Contact
 import org.rekotlin.StateType
 

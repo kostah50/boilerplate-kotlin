@@ -5,12 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.denwehrle.boilerplate.data.auth.AuthenticatorUtils
-import com.denwehrle.boilerplate.redux.actions.LoadState
-import com.denwehrle.boilerplate.redux.state.AppStore
 import com.denwehrle.boilerplate.ui.contact.ContactActivity
 import com.denwehrle.boilerplate.ui.login.LoginActivity
-import dagger.android.AndroidInjection
-import javax.inject.Inject
 
 /**
  * @author Dennis Wehrle

@@ -9,6 +9,8 @@ import android.os.Build
 import android.support.multidex.MultiDex
 import android.support.v4.app.Fragment
 import com.denwehrle.boilerplate.injection.component.DaggerAppComponent
+import com.denwehrle.boilerplate.redux.actions.LoadState
+import com.denwehrle.boilerplate.redux.state.AppStore
 import com.denwehrle.boilerplate.util.notification.NotificationUtils
 import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
@@ -35,6 +37,9 @@ class App : Application(), HasActivityInjector, HasServiceInjector, HasBroadcast
     lateinit var receiverInjector: DispatchingAndroidInjector<BroadcastReceiver>
     @Inject
     lateinit var serviceInjector: DispatchingAndroidInjector<Service>
+    /** Store to be able to dispatch actions */
+    @Inject
+    lateinit var store: AppStore
 
     override fun onCreate() {
         super.onCreate()
@@ -55,6 +60,8 @@ class App : Application(), HasActivityInjector, HasServiceInjector, HasBroadcast
         if (Build.VERSION.SDK_INT >= 26) {
             NotificationUtils(applicationContext).createChannels()
         }
+
+        store.dispatch(LoadState())
     }
 
     override fun attachBaseContext(base: Context) {

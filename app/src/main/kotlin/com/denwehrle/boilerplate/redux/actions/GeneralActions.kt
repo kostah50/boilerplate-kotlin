@@ -17,7 +17,6 @@ class StopLoadingAction: Action
 /**
  * Actions sent when the user requests to load & refresh the users data
  * */
-class LoadContactsAction: Action
 data class SyncAction(val context: Context): Action
 
 /**
@@ -31,5 +30,11 @@ class LoadContactsFailedAction: Action
  * */
 data class SelectedContactAction(val contact: Contact): Action
 class ClearSelectedContactAction: Action
+
+/**
+ * Persistency Actions
+ * */
+class LoadState: Action
+class SaveState: Action
 
 

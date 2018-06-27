@@ -9,6 +9,7 @@ import com.denwehrle.boilerplate.data.manager.contact.ContactDataManager
 import com.denwehrle.boilerplate.data.remote.endpoints.ContactService
 import com.denwehrle.boilerplate.data.remote.factory.ContactServiceFactory
 import com.denwehrle.boilerplate.redux.middleware.NetworkMiddleware
+import com.denwehrle.boilerplate.redux.middleware.PersistencyMiddleware
 import com.denwehrle.boilerplate.redux.reducers.appReducer
 import com.denwehrle.boilerplate.redux.state.AppState
 import com.denwehrle.boilerplate.redux.state.AppStore
@@ -60,6 +61,6 @@ class AppModule {
     fun provideStore(contactDataManager: ContactDataManager): AppStore = Store(
             reducer = ::appReducer,
             state = AppState(),
-            middleware = listOf(NetworkMiddleware(contactDataManager))
+            middleware = listOf(NetworkMiddleware(), PersistencyMiddleware(contactDataManager))
     )
 }

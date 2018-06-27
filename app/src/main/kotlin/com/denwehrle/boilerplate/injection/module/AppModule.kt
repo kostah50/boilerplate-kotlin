@@ -57,9 +57,9 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideStore(): AppStore = Store(
+    fun provideStore(contactDataManager: ContactDataManager): AppStore = Store(
             reducer = ::appReducer,
             state = AppState(),
-            middleware = listOf(NetworkMiddleware())
+            middleware = listOf(NetworkMiddleware(contactDataManager))
     )
 }

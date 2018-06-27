@@ -53,7 +53,8 @@ class ContactActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
         /** Set Up all the UI components that need so*/
         setUpUIComponents()
 
-        onRefresh()
+        getContacts()
+//        onRefresh()
     }
 
     /**
@@ -71,6 +72,10 @@ class ContactActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
                     .setActionTextColor(resources.getColor(R.color.colorPrimary))
                     .show()
         }
+    }
+
+    private fun getContacts(){
+        store.dispatch(LoadContactsAction())
     }
 
 

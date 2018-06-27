@@ -13,12 +13,12 @@ import org.rekotlin.Action
 class StartLoadingAction: Action
 class StopLoadingAction: Action
 
-data class SyncAction(val context: Context): Action
 
 /**
- * Action sent when the user requests to load/refresh the users data
+ * Actions sent when the user requests to load & refresh the users data
  * */
-data class LoadContactsAction(val unit: Unit = Unit): Action
+class LoadContactsAction: Action
+data class SyncAction(val context: Context): Action
 
 /**
  * Actions sent when the data is received from the REST api

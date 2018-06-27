@@ -8,5 +8,6 @@ import com.denwehrle.boilerplate.data.local.model.Contact
  */
 data class AppState (
         val isLoading: Boolean = false,
+        val isWelcomeDone: Boolean = false,
         val contactsState: ContactsState = ContactsState()
 ): StateType

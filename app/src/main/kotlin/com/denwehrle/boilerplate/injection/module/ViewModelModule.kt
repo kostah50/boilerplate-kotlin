@@ -2,11 +2,7 @@ package com.denwehrle.boilerplate.injection.module
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.denwehrle.boilerplate.viewModel.ActiveContactViewModel
-import com.denwehrle.boilerplate.viewModel.ContactsViewModel
-
-import com.denwehrle.boilerplate.viewModel.ExxetaViewModelFactory
-import com.denwehrle.boilerplate.viewModel.LoadingViewModel
+import com.denwehrle.boilerplate.viewModel.*
 
 import dagger.Binds
 import dagger.Module
@@ -33,6 +29,11 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ActiveContactViewModel::class)
     internal abstract fun bindActiveContactViewModel(activeContactViewModel: ActiveContactViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(WelcomeViewModel::class)
+    internal abstract fun bindWelcomeViewModel(welcomeViewModel: WelcomeViewModel): ViewModel
 
     @Binds
     internal abstract fun bindViewModelFactory(factory: ExxetaViewModelFactory): ViewModelProvider.Factory

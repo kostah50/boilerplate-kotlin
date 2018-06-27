@@ -6,15 +6,15 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
-import android.util.Log
 import android.view.View
 import com.denwehrle.boilerplate.R
+import com.denwehrle.boilerplate.redux.actions.SetWelcomeDone
+import com.denwehrle.boilerplate.redux.state.AppStore
 import com.denwehrle.boilerplate.ui.base.BaseActivity
 import com.denwehrle.boilerplate.ui.login.LoginActivity
 import com.denwehrle.boilerplate.ui.welcome.section.WelcomeSectionFragment
 import com.denwehrle.boilerplate.viewModel.WelcomeViewModel
 import kotlinx.android.synthetic.main.content_welcome.*
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -28,6 +28,12 @@ class WelcomeActivity : BaseActivity(), ViewPager.OnPageChangeListener, View.OnC
      */
     @Inject
     lateinit var adapter: WelcomeAdapter
+
+    @Inject
+    lateinit var store : AppStore
+
+    @Inject
+    lateinit var viewModelFactory : ViewModelProvider.Factory
 
     /**
      * For AndroidInjection.inject(this) to work the Activity/Fragment/Service has to be
@@ -63,7 +69,12 @@ class WelcomeActivity : BaseActivity(), ViewPager.OnPageChangeListener, View.OnC
     override fun onClick(view: View) {
         when (view.id) {
             skipButton.id, doneButton.id -> {
+                //Duc: don't know how important the WelcomeDone Boolean is,
+                //so I am changing it in the WelcomeViewModel with the help of redux
+
                 //presenter.setWelcomeDone()
+                store.dispatch(SetWelcomeDone())
+
                 val intent = Intent(application, LoginActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_left)
@@ -78,7 +89,7 @@ class WelcomeActivity : BaseActivity(), ViewPager.OnPageChangeListener, View.OnC
     override fun onPageScrollStateChanged(state: Int) {}
 
     private fun setUpViewModels() {
-        var welcomeViewModel = ViewModelProviders.of(this@WelcomeActivity).get(WelcomeViewModel::class.java)
+        val welcomeViewModel = ViewModelProviders.of(this@WelcomeActivity, viewModelFactory).get(WelcomeViewModel::class.java)
         welcomeViewModel.getWelcomeData().observe(this@WelcomeActivity, Observer {
             it?.forEach {
                 adapter.addFragment(WelcomeSectionFragment.newInstance(it.title, it.text, it.image))

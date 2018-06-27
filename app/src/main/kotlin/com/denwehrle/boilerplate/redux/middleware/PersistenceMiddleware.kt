@@ -53,8 +53,8 @@ class PersistenceMiddleware(private val stateDataManager: StateDataManager) : Mi
                             when (it) {
                                 is AppState -> {
 //                                    Timber.d(">>>>>>>>>>>>>>>>>>>>>>> AppState:$it")
-                                    dispatch(LoadPersistentAppStateAction(it))
-                                }
+                                dispatch(LoadPersistentAppStateAction(it))
+                            }
                                 is ContactsState -> {
 //                                    Timber.d(">>>>>>>>>>>>>>>>>>>>>>> else:$it")
                                     dispatch(LoadPersistentContactsAction(it.contacts))

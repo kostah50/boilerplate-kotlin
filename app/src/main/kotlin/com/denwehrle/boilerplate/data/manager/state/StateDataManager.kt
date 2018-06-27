@@ -30,14 +30,6 @@ class StateDataManager @Inject constructor(preferenceHelper: PreferenceHelper,
         }
     }
 
-    fun loadAppStateFromPersistentStorage(): Single<AppState> {
-        return databaseHelper.appStateDao().getAll()
-    }
-
-    fun loadContactsFromPersistentStorage(): Single<List<Contact>> {
-        return databaseHelper.contactDao().getAllAsSingle()
-    }
-
     fun somethingNew(): Flowable<Any> {
         return Single.concat(databaseHelper.appStateDao().getAll(), databaseHelper.contactDao().getAllAsSingle().flatMap {
             Single.just(ContactsState(contacts = it))

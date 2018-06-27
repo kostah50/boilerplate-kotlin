@@ -32,4 +32,7 @@ class LoadContactsFailedAction: Action
 data class SelectedContactAction(val contact: Contact): Action
 class ClearSelectedContactAction: Action
 
-
+/**
+ * Action sent when the welcome screen is skipped or done
+ */
+class SetWelcomeDone: Action

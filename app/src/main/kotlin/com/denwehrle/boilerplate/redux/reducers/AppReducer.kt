@@ -12,5 +12,6 @@ import org.rekotlin.Action
 fun appReducer(action: Action, appState: AppState?): AppState =
         AppState(
                 isLoading = isLoadingReducer(action, appState?.isLoading),
-                contactsState = contactsState(action, appState?.contactsState)
+                contactsState = contactsState(action, appState?.contactsState),
+                isWelcomeDone = isWelcomeDoneReducer(action, appState?.isWelcomeDone)
         )

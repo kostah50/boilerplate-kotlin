@@ -7,6 +7,7 @@ import android.os.Bundle
 import com.denwehrle.boilerplate.data.auth.AuthenticatorUtils
 import com.denwehrle.boilerplate.ui.contact.ContactActivity
 import com.denwehrle.boilerplate.ui.login.LoginActivity
+import com.denwehrle.boilerplate.ui.welcome.WelcomeActivity
 
 /**
  * @author Dennis Wehrle
@@ -17,7 +18,7 @@ class LauncherActivity : Activity() {
         super.onCreate(savedInstanceState)
 
         if (AuthenticatorUtils.getAccount(this) != null) {
-            startActivity(Intent(this, ContactActivity::class.java))
+            startActivity(Intent(this, WelcomeActivity::class.java))
         } else {
             startAuthenticatorActivity(this, false)
         }

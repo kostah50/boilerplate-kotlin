@@ -1,29 +1,39 @@
 package com.denwehrle.boilerplate.ui.welcome
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.view.View
 import com.denwehrle.boilerplate.R
+import com.denwehrle.boilerplate.redux.actions.SetWelcomeDone
+import com.denwehrle.boilerplate.redux.state.AppStore
 import com.denwehrle.boilerplate.ui.base.BaseActivity
 import com.denwehrle.boilerplate.ui.login.LoginActivity
 import com.denwehrle.boilerplate.ui.welcome.section.WelcomeSectionFragment
+import com.denwehrle.boilerplate.viewModel.WelcomeViewModel
 import kotlinx.android.synthetic.main.content_welcome.*
 import javax.inject.Inject
 
 /**
  * @author Dennis Wehrle
  */
-class WelcomeActivity : BaseActivity(), WelcomeMvpView, ViewPager.OnPageChangeListener, View.OnClickListener {
+class WelcomeActivity : BaseActivity(), ViewPager.OnPageChangeListener, View.OnClickListener {
 
     /**
      * To make classed injectable make sure they have a constructor
      * with the @Inject annotation.
      */
     @Inject
-    lateinit var presenter: WelcomePresenter
-    @Inject
     lateinit var adapter: WelcomeAdapter
+
+    @Inject
+    lateinit var store : AppStore
+
+    @Inject
+    lateinit var viewModelFactory : ViewModelProvider.Factory
 
     /**
      * For AndroidInjection.inject(this) to work the Activity/Fragment/Service has to be
@@ -34,7 +44,8 @@ class WelcomeActivity : BaseActivity(), WelcomeMvpView, ViewPager.OnPageChangeLi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
-        presenter.attachView(this)
+        setUpViewModels()
+        setUpClickListener()
     }
 
     /**
@@ -58,7 +69,12 @@ class WelcomeActivity : BaseActivity(), WelcomeMvpView, ViewPager.OnPageChangeLi
     override fun onClick(view: View) {
         when (view.id) {
             skipButton.id, doneButton.id -> {
-                presenter.setWelcomeDone()
+                //Duc: don't know how important the WelcomeDone Boolean is,
+                //so I am changing it in the WelcomeViewModel with the help of redux
+
+                //presenter.setWelcomeDone()
+                store.dispatch(SetWelcomeDone())
+
                 val intent = Intent(application, LoginActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_left)
@@ -72,30 +88,22 @@ class WelcomeActivity : BaseActivity(), WelcomeMvpView, ViewPager.OnPageChangeLi
 
     override fun onPageScrollStateChanged(state: Int) {}
 
+    private fun setUpViewModels() {
+        val welcomeViewModel = ViewModelProviders.of(this@WelcomeActivity, viewModelFactory).get(WelcomeViewModel::class.java)
+        welcomeViewModel.getWelcomeData().observe(this@WelcomeActivity, Observer {
+            it?.forEach {
+                adapter.addFragment(WelcomeSectionFragment.newInstance(it.title, it.text, it.image))
+            }
 
-    /********* Mvp Method Implementations *********/
-
-    override fun setUpViewPager() {
-        adapter.addFragment(WelcomeSectionFragment.newInstance(R.string.welcome_title_1, R.string.welcome_text_1, R.drawable.ic_android))
-        adapter.addFragment(WelcomeSectionFragment.newInstance(R.string.welcome_title_2, R.string.welcome_text_2, R.drawable.ic_beach))
-        adapter.addFragment(WelcomeSectionFragment.newInstance(R.string.welcome_title_3, R.string.welcome_text_3, R.drawable.ic_cake))
-
-        viewPager.adapter = adapter
-        viewPager.addOnPageChangeListener(this)
-        adapter.notifyDataSetChanged()
+            viewPager.adapter = adapter
+            viewPager.addOnPageChangeListener(this)
+            adapter.notifyDataSetChanged()
+        })
     }
 
-    override fun setUpClickListener() {
+    private fun setUpClickListener() {
         skipButton.setOnClickListener(this)
         nextButton.setOnClickListener(this)
         doneButton.setOnClickListener(this)
-    }
-
-    /**
-     * Make sure to detach the presenter so we don't create a memory leak.
-     */
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.detachView()
     }
 }

@@ -14,7 +14,8 @@ import com.denwehrle.boilerplate.data.local.model.Contact
 data class AppState(
         @PrimaryKey
         val index: String,
-
+		
+        val isWelcomeDone: Boolean,
         val isLoading: Boolean,
         val contactsState: ContactsState
 ) : StateType {
@@ -23,6 +24,7 @@ data class AppState(
             return AppState(
                     index = "1",
                     isLoading = false,
+					isWelcomeDone = false,
                     contactsState = ContactsState()
             )
         }

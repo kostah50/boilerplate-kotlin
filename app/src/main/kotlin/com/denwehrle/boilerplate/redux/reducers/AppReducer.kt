@@ -20,7 +20,8 @@ fun appReducer(action: Action, appState: AppState?): AppState {
         else -> {
             state = AppState.notLoading().copy(
                     isLoading = isLoadingReducer(action, appState?.isLoading),
-                    contactsState = contactsState(action, appState?.contactsState)
+                contactsState = contactsState(action, appState?.contactsState),
+                isWelcomeDone = isWelcomeDoneReducer(action, appState?.isWelcomeDone)
             )
         }
     }

@@ -35,4 +35,7 @@ class LoadPersistentAppStateAction(val appState: AppState): Action
 class LoadPersistentContactsAction(val contacts: List<Contact>): Action
 interface SaveStateAction: Action
 
-
+/**
+ * Action sent when the welcome screen is skipped or done
+ */
+class SetWelcomeDone: Action

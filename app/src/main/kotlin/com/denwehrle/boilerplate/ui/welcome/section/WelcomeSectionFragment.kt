@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_welcome.view.*
 /**
  * @author Dennis Wehrle
  */
-class WelcomeSectionFragment : BaseFragment(), WelcomeSectionMvpView {
+class WelcomeSectionFragment : BaseFragment() {
 
     /**
      * We use the companion object to statically create instances of the fragment.

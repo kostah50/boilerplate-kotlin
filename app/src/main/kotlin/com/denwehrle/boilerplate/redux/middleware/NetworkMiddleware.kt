@@ -11,15 +11,15 @@ import org.rekotlin.Middleware
  *
  * @author Miguel Costa
  */
-class NetworkMiddleware: Middleware<AppState> {
+class NetworkMiddleware : Middleware<AppState> {
     override fun invoke(dispatch: DispatchFunction, state: () -> AppState?): (DispatchFunction) -> DispatchFunction {
         return { next ->
             { action ->
                 next(action)
                 when (action) {
-                    /**
-                     * When we have a [SyncAction] we want to intercept it
-                     * and do the Sync Request */
+                /**
+                 * When we have a [SyncAction] we want to intercept it
+                 * and do the Sync Request */
                     is SyncAction -> {
                         SyncUtils.triggerRefresh(context = action.context)
                     }
@@ -27,20 +27,4 @@ class NetworkMiddleware: Middleware<AppState> {
             }
         }
     }
-
-//    private fun getContacts(dispatch: DispatchFunction) {
-//        Timber.d("NetworkMiddleware - getContacts")
-//        dataManager.getContacts().singleOrError()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeBy(
-//                        onSuccess = {
-//                            dispatch(LoadContactsSuccessfulAction(it))
-//                        },
-//                        onError = {
-//                            Timber.e(it)
-//                            dispatch(LoadContactsFailedAction())
-//                        }
-//                )
-//    }
 }

@@ -1,5 +1,6 @@
 package com.denwehrle.boilerplate.injection.module
 
+import com.denwehrle.boilerplate.ui.LauncherActivity
 import com.denwehrle.boilerplate.data.sync.service.ContactSyncService
 import com.denwehrle.boilerplate.injection.scope.PerActivity
 import com.denwehrle.boilerplate.injection.scope.PerFragment
@@ -23,8 +24,6 @@ import dagger.android.ContributesAndroidInjector
  */
 @Module
 abstract class BindingModule {
-
-
     /********* Welcome *********/
 
     @PerActivity

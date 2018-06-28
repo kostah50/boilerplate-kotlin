@@ -36,5 +36,10 @@ internal abstract class ViewModelModule {
     internal abstract fun bindWelcomeViewModel(welcomeViewModel: WelcomeViewModel): ViewModel
 
     @Binds
+    @IntoMap
+    @ViewModelKey(LoginViewModel::class)
+    internal abstract fun bindLoginViewModel(loginViewModel: LoginViewModel) : ViewModel
+
+    @Binds
     internal abstract fun bindViewModelFactory(factory: ExxetaViewModelFactory): ViewModelProvider.Factory
 }

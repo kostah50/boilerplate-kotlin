@@ -6,11 +6,12 @@ import com.denwehrle.boilerplate.data.local.model.Contact
 import com.denwehrle.boilerplate.data.manager.base.BaseDataManager
 import com.denwehrle.boilerplate.data.mapper.ContactMapper
 import com.denwehrle.boilerplate.data.remote.endpoints.ContactService
-import com.denwehrle.boilerplate.redux.actions.LoadContactsSuccessfulAction
+import com.denwehrle.boilerplate.redux.actions.SyncContactsSuccessfulAction
 import com.denwehrle.boilerplate.redux.state.AppStore
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
+import io.reactivex.SingleSource
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -23,9 +24,7 @@ import javax.inject.Singleton
 class ContactDataManager @Inject constructor(preferenceHelper: PreferenceHelper,
                                              private val databaseHelper: DatabaseHelper,
                                              private val contactService: ContactService,
-                                             private val contactMapper: ContactMapper,
-                                             private val store: AppStore
-
+                                             private val contactMapper: ContactMapper
 ) : BaseDataManager(preferenceHelper) {
 
 
@@ -43,6 +42,14 @@ class ContactDataManager @Inject constructor(preferenceHelper: PreferenceHelper,
      * We request the data from the database and return it as observable stream. A [Single] can have
      * the state onComplete() or onError() which we should react to in the calling method.
      */
+    fun getContactsAsSingle(): Single<List<Contact>> {
+        return getContacts().firstOrError()
+    }
+
+    /**
+     * We request the data from the database and return it as observable stream. A [Single] can have
+     * the state onComplete() or onError() which we should react to in the calling method.
+     */
     fun getContactByEmail(email: String): Single<Contact> {
         return databaseHelper.contactDao().findByEmail(email)
     }
@@ -54,7 +61,7 @@ class ContactDataManager @Inject constructor(preferenceHelper: PreferenceHelper,
      * After the sync we convert the remote object into a local one using the .map() function and our
      * [ContactMapper] and finally save the data into the database.
      */
-    fun syncContacts(): Single<List<Contact>> {
+    fun syncContacts(store: AppStore): Single<List<Contact>> {
         return contactService.getContacts()
                 .map {
                     it.results.map {
@@ -62,7 +69,8 @@ class ContactDataManager @Inject constructor(preferenceHelper: PreferenceHelper,
                     }
                 }
                 .flatMap {
-                    saveContacts(it).toSingle { it }
+                    var sortedList = it.sortedBy { it.firstName + " " + it.lastName }
+                    saveContacts(sortedList, store).toSingle { sortedList }
                 }
     }
 
@@ -70,12 +78,12 @@ class ContactDataManager @Inject constructor(preferenceHelper: PreferenceHelper,
      * Takes a list of objects to persist into the database. We return an [Completable]
      * so we can call it inside the .flatMap() operator and still return our initial data.
      */
-    private fun saveContacts(contacts: List<Contact>): Completable {
-        store.dispatch(LoadContactsSuccessfulAction(contacts))
+    private fun saveContacts(contacts: List<Contact>, store: AppStore): Completable {
         return Completable.defer {
-            contacts.forEach {
-                databaseHelper.contactDao().insertAll(it)
-            }
+            store.dispatch(SyncContactsSuccessfulAction(contacts))
+//            contacts.forEach {
+//                databaseHelper.contactDao().insertAll(it)
+//            }
             Completable.complete()
         }
     }

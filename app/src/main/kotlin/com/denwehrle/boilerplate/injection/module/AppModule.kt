@@ -6,9 +6,11 @@ import com.denwehrle.boilerplate.BuildConfig
 import com.denwehrle.boilerplate.data.local.helper.DatabaseHelper
 import com.denwehrle.boilerplate.data.local.helper.PreferenceHelper
 import com.denwehrle.boilerplate.data.manager.contact.ContactDataManager
+import com.denwehrle.boilerplate.data.manager.state.StateDataManager
 import com.denwehrle.boilerplate.data.remote.endpoints.ContactService
 import com.denwehrle.boilerplate.data.remote.factory.ContactServiceFactory
 import com.denwehrle.boilerplate.redux.middleware.NetworkMiddleware
+import com.denwehrle.boilerplate.redux.middleware.PersistenceMiddleware
 import com.denwehrle.boilerplate.redux.reducers.appReducer
 import com.denwehrle.boilerplate.redux.state.AppState
 import com.denwehrle.boilerplate.redux.state.AppStore
@@ -57,9 +59,9 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideStore(): AppStore = Store(
+    fun provideStore(stateDataManager: StateDataManager): AppStore = Store(
             reducer = ::appReducer,
-            state = AppState(),
-            middleware = listOf(NetworkMiddleware())
+            state = AppState.notLoading(),
+            middleware = listOf(NetworkMiddleware(), PersistenceMiddleware(stateDataManager))
     )
 }

@@ -3,6 +3,7 @@ package com.denwehrle.boilerplate.data.sync.service
 import android.content.AbstractThreadedSyncAdapter
 import com.denwehrle.boilerplate.data.manager.contact.ContactDataManager
 import com.denwehrle.boilerplate.data.sync.adapter.ContactDataSyncAdapter
+import com.denwehrle.boilerplate.redux.state.AppStore
 import javax.inject.Inject
 
 /**
@@ -17,11 +18,14 @@ class ContactSyncService : AbstractSyncService() {
     @Inject
     lateinit var contactDataManager: ContactDataManager
 
+    @Inject
+    lateinit var store: AppStore
+
     /**
      * We provide the injected dependencies through the constructor because there is
      * no way to inject directly into the SyncAdapter.
      */
     override fun createSyncAdapter(): AbstractThreadedSyncAdapter {
-        return ContactDataSyncAdapter(applicationContext, true, contactDataManager)
+        return ContactDataSyncAdapter(applicationContext, true, contactDataManager,store)
     }
 }

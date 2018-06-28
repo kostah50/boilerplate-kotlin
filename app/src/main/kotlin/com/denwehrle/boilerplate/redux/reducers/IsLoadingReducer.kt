@@ -9,10 +9,10 @@ import org.rekotlin.Action
 fun isLoadingReducer(action: Action, isLoading: Boolean?): Boolean {
     var state: Boolean = isLoading ?: false
     when (action) {
-        is StartLoadingAction, is LoadContactsAction, is SyncAction -> {
+        is StartLoadingAction, is SyncAction -> {
             state = true
         }
-        is StopLoadingAction, is LoadContactsSuccessfulAction, is LoadContactsFailedAction -> {
+        is StopLoadingAction, is SyncContactsSuccessfulAction -> {
             state = false
         }
     }

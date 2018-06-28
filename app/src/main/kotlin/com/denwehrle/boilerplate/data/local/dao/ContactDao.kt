@@ -2,6 +2,7 @@ package com.denwehrle.boilerplate.data.local.dao
 
 import android.arch.persistence.room.*
 import com.denwehrle.boilerplate.data.local.model.Contact
+import com.denwehrle.boilerplate.redux.state.ContactsState
 import io.reactivex.Flowable
 import io.reactivex.Single
 
@@ -14,6 +15,10 @@ interface ContactDao {
     @Query("SELECT * FROM contact " +
             "ORDER BY firstName")
     fun getAll(): Flowable<List<Contact>>
+
+    @Query("SELECT * FROM contact " +
+            "ORDER BY firstName")
+    fun getAllAsSingle(): Single<List<Contact>>
 
     @Query("SELECT * FROM contact " +
             "WHERE firstName = :firstName")

@@ -12,7 +12,6 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import com.denwehrle.boilerplate.R
 import com.denwehrle.boilerplate.data.local.model.Contact
-import com.denwehrle.boilerplate.redux.actions.LoadContactsAction
 import com.denwehrle.boilerplate.redux.actions.SelectedContactAction
 import com.denwehrle.boilerplate.redux.actions.SyncAction
 import com.denwehrle.boilerplate.redux.state.AppStore
@@ -23,7 +22,6 @@ import com.denwehrle.boilerplate.viewModel.ContactsViewModel
 import com.denwehrle.boilerplate.viewModel.LoadingViewModel
 import kotlinx.android.synthetic.main.activity_contact.*
 import kotlinx.android.synthetic.main.content_contact.*
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -53,7 +51,8 @@ class ContactActivity : BaseActivity(), SwipeRefreshLayout.OnRefreshListener {
         /** Set Up all the UI components that need so*/
         setUpUIComponents()
 
-        onRefresh()
+//        getContacts()
+//        onRefresh()
     }
 
     /**

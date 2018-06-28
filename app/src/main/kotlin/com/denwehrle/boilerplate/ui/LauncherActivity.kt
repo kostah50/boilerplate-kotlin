@@ -13,7 +13,6 @@ import com.denwehrle.boilerplate.ui.welcome.WelcomeActivity
  * @author Dennis Wehrle
  */
 class LauncherActivity : Activity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
